@@ -11,9 +11,6 @@ RUN apk add --no-cache \
     htop \
     jq \
     nginx \
-    postgresql13 \
-    postgresql15 \
-    postgresql15-client \
     su-exec \
     sudo \
     vim \
@@ -43,10 +40,8 @@ ENV EXISTING_DB false
 ENV PHP_MEMORY_LIMIT 1024M
 ENV PHP_UPLOAD_LIMIT 20480M
 
-# Create and own Postgres/PHP run dirs
-RUN mkdir -p /run/postgresql
+# Create and own PHP run dir
 RUN mkdir -p /run/php
-RUN chown postgres:postgres /run/postgresql
 RUN chown www-data:www-data /run/php
 
 # Setup Cron
@@ -61,7 +56,5 @@ ADD actions/*.sh /usr/local/bin/
 ADD nextcloud-init.sh /usr/local/bin/nextcloud-init.sh
 ADD nextcloud-run.sh /usr/local/bin/nextcloud-run.sh
 ADD nextcloud.env /usr/local/bin/nextcloud.env
-ADD migrate.sh /usr/local/bin/migrate.sh
-ADD migration-completion.sh /docker-entrypoint-hooks.d/post-upgrade/migration-completion.sh
 RUN chmod a+x /usr/local/bin/*.sh
 RUN chmod a+x /docker-entrypoint-hooks.d/post-upgrade/*.sh

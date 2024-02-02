@@ -51,11 +51,6 @@ _term() {
   kill -TERM "$crond_process" 2>/dev/null
 }
 
-# Start Postgres
-rm -f $PGDATA/postmaster.pid
-echo "Starting PostgreSQL db server..."
-sudo -u postgres pg_ctl start -D $PGDATA
-
 # Modify config.php, add default locale settings from user config, and turn off UI update checker
 sed -i "/'overwrite\.cli\.url' => .*/d" $CONFIG_FILE
 sed -i "/'overwriteprotocol' => .*/d" $CONFIG_FILE

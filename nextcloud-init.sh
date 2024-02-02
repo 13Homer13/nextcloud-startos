@@ -19,10 +19,6 @@ chown -R postgres:postgres /var/lib/postgresql
 echo "Initializing PostgreSQL database..."
 sudo -u postgres pg_ctl initdb -D $PGDATA
 
-# Start PG server
-echo "Starting PostgreSQL db server..."
-sudo -u postgres pg_ctl start -D $PGDATA
-
 # Create db user & db, set password
 echo "Setting up database..."
 sudo -u postgres createuser --superuser $POSTGRES_USER
